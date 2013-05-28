@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="js/milkmidi.CityArea.js"></script>  
+  <script type="text/javascript">
+      $(function () {
+          //$("#city_select").city();
+
+          var cityArea = new CityArea('city_select', 'area_select', "street_select", "xml/");
+
+          $("#submit_btn").click(function () {
+              //console.info(cityArea.getCity() + "" + cityArea.getArea() + cityArea.getZip());
+              console.info(cityArea.getAddress(true));
+          });
+
+      });
+  </script>
+<head>
+    <title></title>
+</head>
+<body>
+    <select id="city_select" style="width:150px;"></select>
+    <select id="area_select" style="width:150px;"></select>
+    <select id="street_select" style="width:150px;"></select>
+    <p><input id="addr_input" type="text" value="" /></p>
+
+    <p><input id="submit_btn" type=button value="Submit" /></p>
+</body>
+</html>

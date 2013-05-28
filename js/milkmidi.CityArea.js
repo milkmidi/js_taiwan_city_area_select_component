@@ -28,6 +28,9 @@ CityArea = (function () {
         jStreet.append("<option value='0'>請選擇</option>");
         var innerThis = this;
         this.xml = null;
+		this.$city = jCity;
+		this.$area = jArea;
+		this.$street = jStreet;
 
         function clearAreaAndStreet() {
             jArea.empty();
@@ -49,13 +52,15 @@ CityArea = (function () {
                 jArea.append("<option value='" + zip + "'>" + name + "</option>");
             });
         });
-        jArea.change(function (e) {
-            jStreet.empty();
+        jArea.change(function (e) {			
+            jStreet.empty();			
             var fileName = innerThis.getZip() + "_" + innerThis.getCity() + "_" + innerThis.getArea() + ".txt";
             jStreet.empty();
             jStreet.append("<option value='0'>請選擇</option>");
             log(fileName);
-
+			if(jArea.get(0).selectedIndex == 0){
+				return;
+			}
             $.ajax({
                 type: "GET",
                 url: sXmlPath+"streetName/" + fileName,
@@ -87,10 +92,10 @@ CityArea = (function () {
         });
     }
     CityArea.prototype.getCity = function () {
-        return $("#" + this.cityId + " :selected").text()
+        return $("#" + this.cityId + " :selected").text();
     }
     CityArea.prototype.getArea = function () {
-        return $("#" + this.areaId + " :selected").text()
+        return $("#" + this.areaId + " :selected").text();
     }
     CityArea.prototype.getZip = function () {
         return $("#" + this.areaId + " :selected").attr("value");
@@ -102,5 +107,11 @@ CityArea = (function () {
         var address = this.getCity() + this.getArea() + this.getStreet();
         return withZip ? this.getZip() + address : address;
     }
+	CityArea.prototype.validate = function(){
+		var cityIndex = this.$city.get(0).selectedIndex;
+		var areaIndex = this.$area.get(0).selectedIndex;
+		var streetIndex = this.$street.get(0).selectedIndex;
+		return cityIndex != 0 && areaIndex != 0 && streetIndex !=0;
+	}
     return CityArea;
 })();

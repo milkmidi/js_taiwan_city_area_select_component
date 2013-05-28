@@ -5,13 +5,16 @@
   <script type="text/javascript" src="js/milkmidi.CityArea.js"></script>  
   <script type="text/javascript">
       $(function () {
-          //$("#city_select").city();
-
           var cityArea = new CityArea('city_select', 'area_select', "street_select", "xml/");
-
           $("#submit_btn").click(function () {
               //console.info(cityArea.getCity() + "" + cityArea.getArea() + cityArea.getZip());
-              console.info(cityArea.getAddress(true));
+			  
+			  if( !cityArea.validate() ){
+				  $("#reault").text("請選擇!");
+			  }else{
+				  $("#reault").text(cityArea.getAddress(true));
+			  }
+			  
           });
 
       });
@@ -23,8 +26,7 @@
     <select id="city_select" style="width:150px;"></select>
     <select id="area_select" style="width:150px;"></select>
     <select id="street_select" style="width:150px;"></select>
-    <p><input id="addr_input" type="text" value="" /></p>
-
     <p><input id="submit_btn" type=button value="Submit" /></p>
+    <div id="reault"></div>
 </body>
 </html>

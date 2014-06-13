@@ -63,6 +63,7 @@ CityArea = (function () {
 			}
             $.ajax({
                 type: "GET",
+                dataType : "text",
                 url: sXmlPath+"streetName/" + fileName,
                 success: function (response) {
                     if (!response) {
